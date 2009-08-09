@@ -1,5 +1,3 @@
-# Using the OpenFrameworks plugin for Code::Blocks #
-
 = Installation for Code::Blocks on Windows (mac/linux not yet supported) =
 
 With this plugin for Code::Blocks you can easily install ofx* addons to your openFrameworks projects. Follow these steps to install the plugin for code blocks. We assume you have a svn clients installed (i.e. Turtoise SVN).

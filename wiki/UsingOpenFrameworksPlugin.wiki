@@ -16,3 +16,4 @@ svn export http://ofcodeblocksplugin.googlecode.com/svn/trunk/OpenFrameworks.cbp
    * *That's all*, you now have installed the plugin. You'll see it under Plugins > OpenFrameworks
 
  
+http://i25.tinypic.com/mhrmg8.png

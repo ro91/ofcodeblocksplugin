@@ -1,4 +1,4 @@
-# Using the OpenFrameworks plugin for Code::Blocks
+# Using the OpenFrameworks plugin for Code::Blocks #
 
 = Installation for Code::Blocks on Windows (mac/linux not yet supported) =
 

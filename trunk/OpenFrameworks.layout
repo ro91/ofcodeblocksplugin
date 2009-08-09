@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="cb_8.02" />
+	<File name="AddonDialog.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="7761" topLine="244" />
+	</File>
+	<File name="AddonDialog.h" open="1" top="0" tabpos="8">
+		<Cursor position="1144" topLine="24" />
+	</File>
+	<File name="InstallParser.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="2885" topLine="85" />
+	</File>
+	<File name="InstallParser.h" open="1" top="0" tabpos="12">
+		<Cursor position="669" topLine="3" />
+	</File>
+	<File name="OpenFrameworks.cpp" open="1" top="1" tabpos="10">
+		<Cursor position="4001" topLine="123" />
+	</File>
+	<File name="OpenFrameworks.h" open="1" top="0" tabpos="11">
+		<Cursor position="1185" topLine="30" />
+	</File>
+	<File name="ProjectAnalyzer.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1118" topLine="32" />
+	</File>
+	<File name="ProjectAnalyzer.h" open="1" top="0" tabpos="9">
+		<Cursor position="226" topLine="0" />
+	</File>
+	<File name="tinyxml\tinywxuni.cpp" open="1" top="0" tabpos="17">
+		<Cursor position="196" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

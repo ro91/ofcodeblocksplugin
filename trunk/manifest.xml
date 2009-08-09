@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_plugin_manifest_file>
+    <SdkVersion major="1" minor="11"  release="12" />
+    <Plugin name="OpenFrameworks">
+        <Value title="OpenFrameworks" />
+        <Value version="0.1" />
+        <Value description="OpenFrameworks" />
+        <Value author="Diederick" />
+        <Value authorEmail="diederick@apollomedia.nl" />
+        <Value authorWebsite="author" />
+        <Value thanksTo="" />
+        <Value license="GPL" />
+    </Plugin>
+</CodeBlocks_plugin_manifest_file>

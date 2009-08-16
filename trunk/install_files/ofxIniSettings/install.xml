@@ -1,0 +1,40 @@
+<install>
+	
+	<version>0.1</version>
+	<author>Rick Companje</author>
+	<url></url>
+	
+	<!-- CodeBlocks addon: added "ofxVectorMath 2009.08.09, Roxlu -->
+	<requires>ofxVectorMath</requires>
+	
+	
+	<add>	
+		<!-- 	=====================================================================	-->
+		<!--	========================== add for the "installation" of OF =========	-->
+		<!-- 	=====================================================================	-->
+	
+		<addons_h>
+		//--------------------------------------------- dir list
+		#ifdef OF_ADDON_USING_OFXINISETTINGS
+			#include "ofxIniSettings.h"
+		#endif 
+		</addons_h>
+		
+		<!-- 	=====================================================================	-->
+		<!--	========================== add per project using this addon =========	-->
+		<!-- 	=====================================================================	-->
+	
+		<src>
+			<folder name="addons/ofxIniSettings/src">
+				<file>../../../addons/ofxIniSettings/src/ofxIniSettings.h</file>
+				<file>../../../addons/ofxIniSettings/src/ofxIniSettings.cpp</file>
+			</folder>
+		</src>
+		
+		<include>
+			<path>../../../addons/ofxIniSettings/src</path>
+		</include>
+		
+	</add>
+	 
+</install>

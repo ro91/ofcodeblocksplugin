@@ -1,0 +1,25 @@
+<install>
+	<!-- created by Diederick Huijbers <diederick@apollomedia.nl> -->
+	<version>0.01</version>
+	<author></author>
+	<url></url>
+	
+    <add>	
+	    <src>
+		    <folder name="addons/ofxNoise/src">	
+			    <file>../../../addons/ofxNoise/src/ofxNoise.h</file>
+			    <file>../../../addons/ofxNoise/src/ofxPerlin.cpp</file>
+			    <file>../../../addons/ofxNoise/src/ofxPerlin.h</file>
+			    <file>../../../addons/ofxNoise/src/ofxSimplex.cpp</file>
+			    <file>../../../addons/ofxNoise/src/ofxSimplex.h</file>
+			    <file>../../../addons/ofxNoise/src/ofxSimpleTables.h</file>
+			    <file>../../../addons/ofxNoise/src/ofxSinCosLUT.h</file>
+		    </folder>
+	    </src>
+	
+	    <include>
+		    <path>../../../addons/ofxNoise/src</path>
+	    </include>
+    </add>
+    
+</install>

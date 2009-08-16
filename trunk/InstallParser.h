@@ -4,11 +4,13 @@
 
 #include <string>
 #include <vector>
+
 #include <tinyxml.h>
 #include <wx/string.h>
 
 struct FileInfo {
 	wxString file;
+
 };
 
 class InstallParser {

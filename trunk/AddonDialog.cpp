@@ -3,7 +3,7 @@
 #include "cbproject.h"
 #include "configmanager.h"
 #include "projectmanager.h"
-
+#include <map>
 
 AddonDialog::AddonDialog(wxWindow* pParent,wxWindowID nID, const wxString& sTitle):wxDialog(pParent, nID, sTitle) {
 	int max_w = 420;
@@ -11,6 +11,7 @@ AddonDialog::AddonDialog(wxWindow* pParent,wxWindowID nID, const wxString& sTitl
 	max_w -= 10;
 	ConfigManager* cfg = Manager::Get()->GetConfigManager(_T("openframeworks"));
 	wxString saved_path = _T("");
+
 	if (cfg) {
 		saved_path = cfg->Read(_T("of_dir"),_T("You need to select the openFrameworks directory."));
 	}
@@ -22,7 +23,6 @@ AddonDialog::AddonDialog(wxWindow* pParent,wxWindowID nID, const wxString& sTitl
 		,wxPoint(10,10)
 		,wxSize(385, 60)
 	);
-
 
 	of_dir_txt = new wxTextCtrl(
 		this
@@ -40,20 +40,12 @@ AddonDialog::AddonDialog(wxWindow* pParent,wxWindowID nID, const wxString& sTitl
 		,wxPoint(355,35)
 		,wxSize(25,20)
 	);
+
 	Connect(
 		OF_DIR_BUTTON
 		,wxEVT_COMMAND_BUTTON_CLICKED
 		,wxCommandEventHandler(AddonDialog::onOFDirButtonClick)
 	);
-/*
-	of_dir_txt = new wxStaticText(
-		box
-		,wxNewId()
-		,saved_path
-		,wxPoint(10,10)
-	);
-	*/
-
 
 	of_addon_box = new wxStaticBox(
 		this
@@ -77,6 +69,7 @@ AddonDialog::AddonDialog(wxWindow* pParent,wxWindowID nID, const wxString& sTitl
 		,_T("Add addons to project")
 		,wxPoint(10,420)
 	);
+
 	Connect(
 		OF_OK_BUTTON
 		,wxEVT_COMMAND_BUTTON_CLICKED
@@ -97,9 +90,10 @@ AddonDialog::AddonDialog(wxWindow* pParent,wxWindowID nID, const wxString& sTitl
 
 	setOFDir(saved_path);
 
-	//wxSize(
+	// setOFDir fills and checks the addons checkboxes;
+	// when they're filled we get the currently selected ones.
+	prev_selected_addons = getSelectedAddons();
 }
-
 
 AddonDialog::~AddonDialog() {
 	delete of_dir_txt;
@@ -119,16 +113,6 @@ void AddonDialog::onOFDirButtonClick(wxCommandEvent & WXUNUSED(oEv)) {
 void AddonDialog::onOkButtonClick(wxCommandEvent & WXUNUSED(oEv)) {
 	Manager::Get()->GetLogManager()->Log(_T("OK clicked."));
 	Manager::Get()->GetLogManager()->Log(wxString::Format(wxT("total %i"),of_addons_list->GetCount()));
-	selected_addons.clear();
-	for(int i = 0; i < of_addons_list->GetCount();++i) {
-		if (of_addons_list->IsChecked(i)) {
-			AddonFile addon_to_add = {
-				of_addons_list->GetString(i)
-				,getAddonInstallFile(of_addons_list->GetString(i))
-			};
-			selected_addons.push_back(addon_to_add);
-		}
-	}
 
 	// close dialog.
 	EndModal(wxID_OK);
@@ -145,10 +129,6 @@ wxString AddonDialog::getAddonInstallFile(wxString sForAddon) {
 		}
 	}
 	return _T("");
-}
-
-std::vector<AddonFile> AddonDialog::getSelectedAddons() {
-	return selected_addons;
 }
 
 void AddonDialog::showOFDirDialog() {
@@ -170,7 +150,6 @@ void AddonDialog::showOFDirDialog() {
 			&& dir.HasSubDirs(_T("libs"))
 		)
 		{
-			Manager::Get()->GetLogManager()->Log(_T("Okay this is a oF dir"));
 			setOFDir(selected_path);
 		}
 		else {
@@ -185,28 +164,16 @@ void AddonDialog::showOFDirDialog() {
 		   	delete err;
 		}
 
-
 		// store the selected path.
 		if (cfg) {
 			Manager::Get()->GetLogManager()->Log(_T("Saving ofdir"));
 			cfg->Write(_T("of_dir"), selected_path, false);
 		}
-
-		/*
-		// loop through the directories...
-		wxString file;
-		bool cont = dir.GetFirst(&file, wxEmptyString, wxDIR_FILES | wxDIR_DIRS);
-		while(cont) {
-			Manager::Get()->GetLogManager()->Log(file);
-			//dir.
-			cont = dir.GetNext(&file);
-		}
-		*/
 	}
 }
+
 void AddonDialog::setOFDir(wxString sDir) {
 	of_dir = sDir;
-	// clear currently found addons.
 	addons.clear();
 
 	// find addons in given directory.
@@ -222,7 +189,6 @@ void AddonDialog::setOFDir(wxString sDir) {
 
 	// find addons which are used in the project alreay.
 	std::vector<AddonFile> used_addons = getAddonsUsedInCurrentProject();
-	Manager::Get()->GetLogManager()->Log(_T("Setting already used addons...."));
 	for (int i = 0; i < used_addons.size(); ++i) {
 		wxString used_addon = used_addons.at(i).name;
 		for(int j = 0; j < of_addons_list->GetCount();++j) {
@@ -241,52 +207,51 @@ std::vector<AddonFile> AddonDialog::findAddons(wxString inDir) {
 	wxString file;
 	bool cont = dir.GetFirst(&file, wxEmptyString, wxDIR_DIRS);
 	while(cont) {
-		//Manager::Get()->GetLogManager()->Log(file);
 		wxString addon_dir_name = inDir;
 		addon_dir_name.append(file);
 		wxDir addon_dir(addon_dir_name);
-		//Manager::Get()->GetLogManager()->Log(addon_dir_name);
 		if (addon_dir.HasFiles(_T("install.xml"))) {
-			AddonFile addon_info = {file, addon_dir_name +_T("\\install.xml")};
+			AddonFile addon_info = {
+				file
+				,addon_dir_name
+				,addon_dir_name +_T("\\install.xml")
+			};
 			addons.push_back(addon_info );
-			//Manager::Get()->GetLogManager()->Log(_T("> YES HAS INSTALL"));
 		}
-		//dir.
 		cont = dir.GetNext(&file);
 	}
 	return addons;
 }
-
 
 std::vector<AddonFile> AddonDialog::getFoundAddons() {
 	return addons;
 }
 
 std::vector<AddonFile> AddonDialog::getDeselectedAddons() {
-	std::vector<AddonFile> found_addons = getFoundAddons();
-	std::vector<AddonFile> selected_addons = getSelectedAddons();
-	std::vector<AddonFile> used_addons = getAddonsUsedInCurrentProject();
+	std::vector<AddonFile> prev_selected 	= getPreviouslySelectedAddons();
+	std::vector<AddonFile> new_selected 	= getSelectedAddons();
+	std::vector<AddonFile> deselected;
 
-	std::vector<AddonFile> deselected_addons;
-	for (int j = 0; j < used_addons.size(); ++j) {
-		bool deselected = true;
-		for (int i = 0; i < selected_addons.size(); ++i) {
-			if (used_addons.at(j).name == selected_addons.at(i).name) {
-				deselected = false;
+	for(std::vector<AddonFile>::const_iterator p = prev_selected.begin(); p != prev_selected.end(); ++p) {
+		bool still_selected = false;
+		for(std::vector<AddonFile>::const_iterator k = new_selected.begin(); k != new_selected.end(); ++k) {
+			if (p->name == k->name) {
+				still_selected = true;
 				break;
 			}
 		}
-		if (deselected) {
-			deselected_addons.push_back(used_addons.at(j));
+		if (!still_selected) {
+			deselected.push_back(*p);
 		}
 	}
-	return deselected_addons;
+	return deselected;
 }
 
 std::vector<AddonFile> AddonDialog::getNewSelectedAddons() {
-	std::vector<AddonFile> selected = getSelectedAddons();
-	std::vector<AddonFile> used = getAddonsUsedInCurrentProject();
+	std::vector<AddonFile> selected 	= getSelectedAddons();
+	std::vector<AddonFile> used 		= getAddonsUsedInCurrentProject();
 	std::vector<AddonFile> new_selected;
+
 	for(int i = 0; i < selected.size(); ++i) {
 		bool is_new_addon = true;
 		for(int j = 0; j < used.size(); ++j) {
@@ -300,6 +265,26 @@ std::vector<AddonFile> AddonDialog::getNewSelectedAddons() {
 		}
 	}
 	return new_selected;
+}
+
+std::vector<AddonFile> AddonDialog::getPreviouslySelectedAddons() {
+	return prev_selected_addons;
+}
+
+// returns a vector with all the selected addons in the checkbox list.
+std::vector<AddonFile> AddonDialog::getSelectedAddons() {
+	std::vector<AddonFile> sel_addons;
+	for(int j = 0; j < of_addons_list->GetCount();++j) {
+		if (of_addons_list->IsChecked(j)) {
+			AddonFile addon_to_add = {
+				of_addons_list->GetString(j)
+				,_T("")
+				,getAddonInstallFile(of_addons_list->GetString(j))
+			};
+			sel_addons.push_back(addon_to_add);
+		}
+	}
+	return sel_addons;
 }
 
 std::vector<AddonFile> AddonDialog::getAddonsUsedInCurrentProject() {

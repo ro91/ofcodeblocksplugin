@@ -4,7 +4,6 @@
 #include <string>
 
 InstallParser::InstallParser(std::string sInstallFile):install_file(sInstallFile) {
-
 }
 
 void InstallParser::setFile(std::string sInstallFile) {
@@ -39,8 +38,9 @@ bool InstallParser::parse() {
 		.FirstChild("src")
 		.FirstChild("folder")
 		.ToElement();
+
 	if (add) {
-		Manager::Get()->GetLogManager()->Log(_T("Add some files to the current project."));
+		project_files.clear();
 		while(add) {
 			wxString folder(add->Attribute("name"),wxConvUTF8);
 			Manager::Get()->GetLogManager()->Log(folder);
@@ -60,7 +60,6 @@ bool InstallParser::parse() {
 			add = add->NextSiblingElement();
 		}
 	}
-
 
 	// @todo keep track of the includes
 	// Include dirs to be added.
@@ -138,9 +137,6 @@ bool InstallParser::parse() {
 		wxString required_addon(required->GetText(),wxConvUTF8);
 		required_addons.push_back(required_addon);
 	}
-
-
-
 }
 
 std::vector<FileInfo> InstallParser::getProjectFiles() {
@@ -157,5 +153,3 @@ std::vector<wxString> InstallParser::getIncludeDirs() {
 std::vector<wxString> InstallParser::getLinkLibs() {
 	return link_libs;
 }
-
-

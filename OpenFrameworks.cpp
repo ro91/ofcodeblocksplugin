@@ -70,6 +70,7 @@ void OpenFrameworks::removeAddons(std::vector<AddonFile> oAddons) {
 	InstallParser* parser = new InstallParser("");
 	ProjectManager* project_mng = Manager::Get()->GetProjectManager();
     cbProject* project = project_mng->GetActiveProject();
+	std::vector<int> ids;
 
 	// remove files.
 	for(int i = 0; i < oAddons.size(); ++i) {
@@ -77,31 +78,33 @@ void OpenFrameworks::removeAddons(std::vector<AddonFile> oAddons) {
 		parser->setFile(install_xml);
 		parser->parse();
 
-		std::vector<FileInfo>project_files = parser->getProjectFiles();
+		std::vector<FileInfo>addon_files = parser->getProjectFiles();
+		std::map<wxString, wxString> mapped_addon_files;
 		wxArrayInt targets;
 
-		project->BeginRemoveFiles();
-		for(int j = 0; j < project_files.size(); ++j) {
-			for(int k = 0; k < project->GetFilesCount(); ++k) {
-				// Reformat to native path representation
-				ProjectFile* project_file 	= project->GetFile(k);
-				wxFileName wx_project_file 	= project_file->file;
-				wx_project_file.MakeRelativeTo(project->GetBasePath());
-				wxString rel_project_file 	= wx_project_file.GetPath() +wx_project_file.GetPathSeparator() +wx_project_file.GetFullName();
-				wxFileName wx_addon_file 	= wxFileName(project_files.at(j).file);
-				wxString rel_addon_file 	= wx_addon_file.GetPath() + wx_addon_file.GetPathSeparator() +wx_addon_file.GetFullName();
+		// create a lookup table.
+		std::vector<FileInfo>::const_iterator it = addon_files.begin();
+		for(;it != addon_files.end();++it) {
+			wxFileName addon_file 	= it->file;
+			mapped_addon_files[addon_file.GetFullPath()] = addon_file.GetFullPath();
+		}
 
-				// Is the current project file the same as the addon file?
-				if (rel_project_file == rel_addon_file) {
-					project->RemoveFile(k);
-					Manager::Get()->GetLogManager()->Log(_T("Removed from project: ") +rel_addon_file);
-				}
+		// now find the ids of the project files for the addon files.
+		for(int k = 0; k < project->GetFilesCount(); ++k) {
+			if (mapped_addon_files.find(project->GetFile(k)->relativeFilename) != mapped_addon_files.end()) {
+				ids.push_back(k);
 			}
 		}
 		// @todo remove linkers
 		// @todo remove includes
-		project->EndRemoveFiles();
 	}
+
+	// And remove all found project files
+	project->BeginRemoveFiles();
+	for(std::vector<int>::iterator p = ids.begin(); p != ids.end(); p++) {
+		project->RemoveFile(*p);
+	}
+	project->EndRemoveFiles();
 }
 
 /**
@@ -148,7 +151,6 @@ void OpenFrameworks::addAddons(std::vector<AddonFile> oAddons, std::vector<Addon
 		// add includes.
 		std::vector<wxString> includes = parser->getIncludeDirs();
 		for(int i = 0; i < includes.size(); ++i) {
-			//project->AddCompilerOption(includes.at(i));
 			project->AddIncludeDir(includes.at(i));
 		}
 

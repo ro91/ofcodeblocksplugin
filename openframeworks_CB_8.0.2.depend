@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1249842232 source:d:\programming\c++\codeblocks\plugins\openframeworks\installparser.cpp
+1250423840 source:d:\programming\c++\codeblocks\plugins\openframeworks\installparser.cpp
 	"InstallParser.h"
 	<sdk.h>
 	<logmanager.h>
 	<string>
 
-1249163623 d:\programming\c++\codeblocks\plugins\openframeworks\installparser.h
+1250423850 d:\programming\c++\codeblocks\plugins\openframeworks\installparser.h
 	<string>
 	<vector>
 	<tinyxml.h>
@@ -2518,7 +2518,7 @@
 1249079559 d:\programming\c++\codeblocks\sdk_8.0.2\src\include\sdk_precomp.h
 	"sdk_common.h"
 
-1249165890 source:d:\programming\c++\codeblocks\plugins\openframeworks\openframeworks.cpp
+1250431543 source:d:\programming\c++\codeblocks\plugins\openframeworks\openframeworks.cpp
 	<sdk.h>
 	<configurationpanel.h>
 	"OpenFrameworks.h"
@@ -2536,7 +2536,7 @@
 	<wx/panel.h>
 	<wx/string.h>
 
-1249842518 d:\programming\c++\codeblocks\plugins\openframeworks\openframeworks.h
+1249853963 d:\programming\c++\codeblocks\plugins\openframeworks\openframeworks.h
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<cbplugin.h>
@@ -2545,7 +2545,7 @@
 	"InstallParser.h"
 	"AddonDialog.h"
 
-1249162733 d:\programming\c++\codeblocks\plugins\openframeworks\addondialog.h
+1250432238 d:\programming\c++\codeblocks\plugins\openframeworks\addondialog.h
 	<wx/wx.h>
 	<wx/window.h>
 	<wx/dialog.h>
@@ -2606,11 +2606,12 @@
 	"tinyxml.h"
 	<windows.h>
 
-1249162904 source:d:\programming\c++\codeblocks\plugins\openframeworks\addondialog.cpp
+1250431345 source:d:\programming\c++\codeblocks\plugins\openframeworks\addondialog.cpp
 	"AddonDialog.h"
 	"cbproject.h"
 	"configmanager.h"
 	"projectmanager.h"
+	<map>
 
 1249157537 source:d:\programming\c++\codeblocks\plugins\openframeworks\projectanalyzer.cpp
 	"ProjectAnalyzer.h"

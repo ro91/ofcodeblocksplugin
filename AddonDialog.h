@@ -28,6 +28,7 @@ enum {
 
 struct AddonFile {
 	wxString name;
+	wxString addon_dir;
 	wxString install_file;
 };
 
@@ -47,12 +48,12 @@ class AddonDialog : public wxDialog{
 		std::vector<AddonFile> getNewSelectedAddons(); // get the addons which have been added 'this time'
 		std::vector<AddonFile> getDeselectedAddons();
 		std::vector<AddonFile> getAddonsUsedInCurrentProject();
+		std::vector<AddonFile> getPreviouslySelectedAddons();
 
 		wxString getAddonInstallFile(wxString sForAddon);
 
 	private:
 		wxWindow* parent_win;
-		//wxStaticText* of_dir_txt;
 		wxTextCtrl* of_dir_txt;
 		wxButton* of_dir_btn;
 		wxButton* of_ok_btn;
@@ -62,7 +63,7 @@ class AddonDialog : public wxDialog{
 		wxCheckListBox* of_addons_list;
 		wxString of_dir;
 		std::vector<AddonFile> addons; // addons found with an install script.
-		std::vector<AddonFile> selected_addons; // addons which should be installed.
+		std::vector<AddonFile> prev_selected_addons;
 };
 
 #endif

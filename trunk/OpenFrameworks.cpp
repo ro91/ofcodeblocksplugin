@@ -166,6 +166,5 @@ void OpenFrameworks::addAddons(std::vector<AddonFile> oAddons, std::vector<Addon
 				}
 			}
 		}
-
     }
 }

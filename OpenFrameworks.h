@@ -71,6 +71,9 @@
  *
  * @author      Diederick Huijbers <diederick@apollomedia.nl
  *
+ *
+ * When you want to compile your plugin on the Mac, check out this page:
+ * http://wiki.codeblocks.org/index.php?title=Compiling_Code::Blocks_in_Mac_OS_X
  */
 class OpenFrameworks : public cbToolPlugin
 {

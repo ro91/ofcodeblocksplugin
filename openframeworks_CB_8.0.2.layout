@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="default" />
-	<File name="AddonDialog.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="267" topLine="0" />
-	</File>
-	<File name="AddonDialog.h" open="1" top="0" tabpos="5">
-		<Cursor position="300" topLine="30" />
-	</File>
-	<File name="InstallParser.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1626" topLine="27" />
-	</File>
-	<File name="InstallParser.h" open="1" top="0" tabpos="4">
+	<File name="AddonDialog.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />
 	</File>
+	<File name="AddonDialog.h" open="1" top="0" tabpos="5">
+		<Cursor position="1449" topLine="37" />
+	</File>
+	<File name="InstallParser.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="4211" topLine="121" />
+	</File>
+	<File name="InstallParser.h" open="1" top="0" tabpos="4">
+		<Cursor position="201" topLine="2" />
+	</File>
 	<File name="OpenFrameworks.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="4205" topLine="119" />
+		<Cursor position="4909" topLine="137" />
 	</File>
 	<File name="OpenFrameworks.h" open="1" top="0" tabpos="2">
-		<Cursor position="1447" topLine="30" />
+		<Cursor position="2918" topLine="48" />
 	</File>
-	<File name="ProjectAnalyzer.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="149" topLine="0" />
+	<File name="ProjectAnalyzer.cpp" open="1" top="0" tabpos="16">
+		<Cursor position="424" topLine="35" />
 	</File>
 	<File name="ProjectAnalyzer.h" open="1" top="0" tabpos="3">
-		<Cursor position="251" topLine="0" />
+		<Cursor position="413" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

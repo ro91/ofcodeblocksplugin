@@ -33,10 +33,10 @@ void ProjectAnalyzer::analyze(cbProject* pProject) {
 		ProjectFile* project_file = pProject->GetFile(i);
 		if (project_file != NULL) {
 			wxString base_name = project_file->GetBaseName();
-			if (base_name.Contains(_T("\\addons"))) {
-
-				wxString partial_dir = project_path +_T("\\");
-				wxStringTokenizer dir_tokens(project_file->GetBaseName(), _T("\\"));
+			wxString addons_dir = wxFileName::GetPathSeparator() + _T("addons");
+			if (base_name.Contains(addons_dir)) {
+				wxString partial_dir = project_path +wxFileName::GetPathSeparator();
+				wxStringTokenizer dir_tokens(project_file->GetBaseName(), wxFileName::GetPathSeparator());
 				bool start = false;
 				while(dir_tokens.HasMoreTokens()) {
 					// Get next token and check if we are in the addons dir.
@@ -46,7 +46,7 @@ void ProjectAnalyzer::analyze(cbProject* pProject) {
 					}
 
 					// Does the directory exists?
-					partial_dir += token +_T("\\");
+					partial_dir += token +wxFileName::GetPathSeparator();
 					if (!wxDir::Exists(partial_dir) ) {
 						continue;
 					}
@@ -54,7 +54,7 @@ void ProjectAnalyzer::analyze(cbProject* pProject) {
 					// Check for the install file
 					wxDir curr_dir(partial_dir);
 					if (start && curr_dir.HasFiles(_T("install.xml"))) {
-						AddonFile af = {token, curr_dir.GetName() +_T("\\install.xml")};
+						AddonFile af = {token, curr_dir.GetName() +wxFileName::GetPathSeparator() +_T("install.xml")};
 						addon_files.push_back(af);
 					}
 				}

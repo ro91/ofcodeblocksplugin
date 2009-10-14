@@ -177,7 +177,11 @@ void AddonDialog::setOFDir(wxString sDir) {
 	addons.clear();
 
 	// find addons in given directory.
-	findAddons(sDir +_T("\\addons\\"));
+	wxString addon_path = 	sDir
+							+ wxFileName::GetPathSeparator()
+							+_T("addons")
+							+wxFileName::GetPathSeparator();
+	findAddons(addon_path);
 	wxArrayString addons_array;
 	for(int i = 0; i < addons.size(); ++i) {
 		addons_array.Add(addons[i].name);
@@ -214,7 +218,9 @@ std::vector<AddonFile> AddonDialog::findAddons(wxString inDir) {
 			AddonFile addon_info = {
 				file
 				,addon_dir_name
-				,addon_dir_name +_T("\\install.xml")
+				,addon_dir_name
+				+wxFileName::GetPathSeparator()
+				+_T("install.xml")
 			};
 			addons.push_back(addon_info );
 		}

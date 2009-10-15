@@ -1,0 +1,25 @@
+<install>
+	<version>0.01</version>
+	<author><![CDATA[Diederick Huijbers <diederick@apollomedia.nl>]]></author>
+	<url>https://ofxsoundengine.googlecode.com/svn/trunk</url>
+    <add>	
+	    <src>
+		    <folder name="addons/ofxSoundEngine/src">	
+			    <file>../../../addons/ofxSoundEngine/src/ofxFMODIncludes.h</file>
+			    <file>../../../addons/ofxSoundEngine/src/ofxFMODSystem.h</file>
+			    <file>../../../addons/ofxSoundEngine/src/ofxSoundEngine.cpp</file>
+			    <file>../../../addons/ofxSoundEngine/src/ofxSoundEngine.h</file>
+			    <file>../../../addons/ofxSoundEngine/src/ofxSound.h</file>
+			    <file>../../../addons/ofxSoundEngine/src/ofxSound.cpp</file>
+		    </folder>
+	    </src>
+	    <include>
+		    <path>../../../addons/ofxSoundEngine/src</path>
+	    </include>
+    </add>
+</install>
+
+
+
+
+

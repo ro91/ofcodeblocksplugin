@@ -11,7 +11,23 @@ void InstallParser::setFile(std::string sInstallFile) {
 }
 
 std::string InstallParser::getOS() {
-	return "win32";
+    if (platform::macosx)
+        return "mac";
+    else if (platform::windows)
+        return "win32";
+    else if (platform::linux)
+        return "linux";
+    else
+        return "unknown";
+
+       /*
+    //if (PLATFORM == PLATFORM_MSW)
+      //  return "win32";
+    else if (PLATFORM == PLATFORM_MAC)
+        return "mac";
+    else
+        return "unknown";
+ */
 }
 
 bool InstallParser::parse() {
@@ -93,14 +109,18 @@ bool InstallParser::parse() {
 		.FirstChild("link")
 		.FirstChild("lib")
 		.ToElement();
-
+    Manager::Get()->GetLogManager()->Log(_T("our os is: ") );
+   Manager::Get()->GetLogManager()->Log(_T(os.c_str()) );
 	while(link) {
+        wxString link_file(link->GetText(),wxConvUTF8);
 		if(strcmp(link->Attribute("os"),os.c_str()) == 0
 			&& std::string(link->Attribute("compiler")).find("codeblocks") != std::string::npos)
 		{
-			wxString link_file(link->GetText(),wxConvUTF8);
 			link_libs.push_back(link_file);
 			Manager::Get()->GetLogManager()->Log(link_file);
+		}
+		else {
+            Manager::Get()->GetLogManager()->Log(_T("Not linking:") +link_file);
 		}
 		link = link->NextSiblingElement();
 	}

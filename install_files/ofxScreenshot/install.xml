@@ -1,0 +1,18 @@
+<install>
+	<version>0.01</version>
+	<author><![CDATA[Diederick Huijbers <diederick@apollomedia.nl>]]></author>
+	<url></url>
+    <add>	
+	    <src>
+		    <folder name="addons/ofxScreenshot/src">	
+			    <file>../../../addons/ofxScreenshot/src/ofxScreenshot.cpp</file>
+			    <file>../../../addons/ofxScreenshot/src/ofxScreenshot.h</file>
+		    </folder>
+	    </src>
+	    <include>
+		    <path>../../../addons/ofxScreenshot/src</path>
+	    </include>
+    </add>
+</install>
+
+

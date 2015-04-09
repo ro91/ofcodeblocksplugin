@@ -1,0 +1,1 @@
+This plugin for Code::Blocks makes installing/configuring ofx
